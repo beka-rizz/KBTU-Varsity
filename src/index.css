@@ -1,0 +1,107 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Graduate', 'Arial Black', Impact, sans-serif;
+  --font-script: 'Caveat', 'Brush Script MT', cursive;
+
+  --color-paper: #f6f3ec;
+  --color-paper-2: #ece7db;
+  --color-cream: #f3eee3;
+  --color-ink: #0b2447;
+  --color-ink-2: #1f355e;
+  --color-muted: #6b7280;
+  --color-line: #d9d2c3;
+
+  --shadow-card: 0 1px 2px rgb(11 36 71 / 0.06), 0 12px 32px -12px rgb(11 36 71 / 0.25);
+  --shadow-float: 0 24px 60px -20px rgb(11 36 71 / 0.45);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-rise: rise 0.9s var(--ease-out-expo) both;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+:root {
+  /* Updated at runtime to the selected school */
+  --school: #0b2447;
+  --school-ink: #f3eee3;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+  /* Subtle paper grain without an image request */
+  background-image: radial-gradient(rgb(11 36 71 / 0.045) 0.6px, transparent 0.6px);
+  background-size: 7px 7px;
+}
+
+::selection {
+  background: var(--school);
+  color: var(--school-ink);
+}
+
+/* Below-the-fold sections skip layout/paint until near the viewport */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.school-transition {
+  transition:
+    background-color 0.6s var(--ease-out-expo),
+    color 0.6s var(--ease-out-expo),
+    border-color 0.6s var(--ease-out-expo),
+    box-shadow 0.6s var(--ease-out-expo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

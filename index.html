@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b2447" />
+    <meta
+      name="description"
+      content="Varsity winter jackets for KBTU students. Pick your school, see it in 3D, pre-order in Almaty."
+    />
+    <title>KBTU Varsity — Winter jackets for every KBTU school</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts: preconnect + swap so text is never blocked on the font download -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Graduate&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap"
+    />
+
+    <!-- LCP candidate: hero photo -->
+    <link
+      rel="preload"
+      as="image"
+      href="/img/jacket-front-960.webp"
+      imagesrcset="/img/jacket-front-480.webp 480w, /img/jacket-front-960.webp 960w"
+      imagesizes="(min-width: 1024px) 40vw, 90vw"
+      fetchpriority="high"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
