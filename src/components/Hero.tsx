@@ -18,15 +18,15 @@ export function Hero({ school, onPick }: { school: School; onPick: (s: School) =
           </p>
 
           <h1 className="text-balance font-display text-[2.6rem] leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
-            Носи свою
+            Куртка
             <br />
-            <span className="school-transition text-[var(--school)]">школу.</span>
+            <span className="school-transition text-[var(--school)]">твоей школы.</span>
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
-            Зимний бомбер для студентов КБТУ: шерстяное тело, кожаные рукава, шеврон на груди. Один крой,{' '}
-            <strong className="font-semibold text-ink">двенадцать расцветок</strong> — классический тёмно-синий КБТУ и
-            по одной на каждую из 11 школ.
+            Зимний бомбер для студентов КБТУ: плотная шерсть, кожаные рукава и буква на груди. Крой общий, цвет — свой:
+            классический тёмно-синий и{' '}
+            <strong className="font-semibold text-ink">своя расцветка у каждой школы</strong>.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
