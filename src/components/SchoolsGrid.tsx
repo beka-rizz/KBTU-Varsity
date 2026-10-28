@@ -6,11 +6,11 @@ export function SchoolsGrid({ selected, onSelect }: { selected: School; onSelect
     <section id="schools" className="cv-auto scroll-mt-16 border-t border-line bg-cream/40 py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mb-10 max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">02 — Schools</p>
-          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-5xl">Every school. Its own colour.</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">02 — Школы</p>
+          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-5xl">У каждой школы свой цвет.</h2>
           <p className="mt-4 text-ink/65">
-            Colours and emblems are assigned per KBTU school — from the burnt orange of Energy &amp; Petroleum to the
-            onyx-and-gold Business School. The classic navy is for everyone.
+            Цвет и эмблема закреплены за школой КБТУ — от жжёного оранжевого у энергетиков до чёрного с золотом у
+            бизнес-школы. Классический тёмно-синий — для всех.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ export function SchoolsGrid({ selected, onSelect }: { selected: School; onSelect
                     <h3 className="mt-1 text-lg font-bold leading-tight">{s.name}</h3>
                     <p className="mt-2 line-clamp-2 text-sm leading-snug opacity-80">{s.blurb}</p>
                     <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] opacity-90">
-                      {active ? 'Selected' : 'View in 3D'}
+                      {active ? 'Выбрано' : 'Смотреть в 3D'}
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <path d="M5 12h14M13 6l6 6-6 6" />
                       </svg>

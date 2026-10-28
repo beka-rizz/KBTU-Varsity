@@ -8,7 +8,6 @@ import { Jacket, initialRot } from './Jacket'
 export interface JacketSceneProps {
   school: School
   view: 'auto' | 'front' | 'back'
-  onViewSettled?: () => void
   /** false = pause the render loop (e.g. scrolled out of view) */
   active?: boolean
   className?: string
@@ -18,7 +17,7 @@ export interface JacketSceneProps {
  * Default-exported so it can be `React.lazy`-loaded: three.js + R3F only ship
  * when the studio section is about to be seen.
  */
-export default function JacketScene({ school, view, onViewSettled, active = true, className }: JacketSceneProps) {
+export default function JacketScene({ school, view, active = true, className }: JacketSceneProps) {
   const rot = useRef(initialRot())
   const [dpr, setDpr] = useState(1.5)
 
@@ -72,7 +71,7 @@ export default function JacketScene({ school, view, onViewSettled, active = true
             <Lightformer intensity={1} rotation-y={Math.PI / 2} position={[-5, 1, 0]} scale={[4, 2, 1]} color="#dfe8ff" />
             <Lightformer intensity={0.8} rotation-y={-Math.PI / 2} position={[5, 1, 0]} scale={[4, 2, 1]} color="#fff2df" />
           </Environment>
-          <Jacket school={school} view={view} onViewSettled={onViewSettled} rot={rot} />
+          <Jacket school={school} view={view} rot={rot} />
           <ContactShadows position={[0, -0.95, 0]} opacity={0.4} scale={4} blur={2.4} far={1.4} frames={1} />
         </Suspense>
       </Canvas>

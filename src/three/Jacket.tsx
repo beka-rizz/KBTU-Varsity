@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Decal } from '@react-three/drei'
 import * as THREE from 'three'
@@ -54,14 +54,13 @@ export const initialRot = (): RotState => ({ y: 0.35, vel: 0, dragging: false, l
 
 interface JacketProps {
   school: School
-  /** 'front' / 'back' turn the jacket to that side; 'auto' slowly spins. */
+  /** 'front' / 'back' hold the jacket on that side; 'auto' keeps spinning. */
   view: 'auto' | 'front' | 'back'
-  onViewSettled?: () => void
   /** Shared mutable rotation state, driven by pointer events on the canvas wrapper. */
   rot: React.MutableRefObject<RotState>
 }
 
-export function Jacket({ school, view, onViewSettled, rot }: JacketProps) {
+export function Jacket({ school, view, rot }: JacketProps) {
   const group = useRef<THREE.Group>(null)
   const [fontsReady, setFontsReady] = useState(false)
   useEffect(() => {
@@ -73,7 +72,11 @@ export function Jacket({ school, view, onViewSettled, rot }: JacketProps) {
   }, [])
 
   const front = useCanvasTexture(() => drawFront(school), [school.id], fontsReady)
-  const back = useCanvasTexture(() => drawBack(school), [school.id], fontsReady)
+  const back = useCanvasTexture(
+    () => drawBack(school),
+    [school.id, school.backArc, school.backLine, school.tagline, school.accent, school.body],
+    fontsReady,
+  )
   const seal = useCanvasTexture(() => drawSeal(school), [school.id], fontsReady)
   const stripes = useCanvasTexture(() => drawStripes(school), [school.id], fontsReady)
 
@@ -92,12 +95,7 @@ export function Jacket({ school, view, onViewSettled, rot }: JacketProps) {
   const viewport = useThree((s) => s.viewport)
   const fit = Math.min((viewport.width - 0.25) / JACKET_W, (viewport.height - 0.35) / JACKET_H, 1.05)
 
-  /* Rotation: auto-rotate, drag inertia, and "snap to front/back" */
-  const settledRef = useRef(false)
-  useLayoutEffect(() => {
-    settledRef.current = false
-  }, [view])
-
+  /* Rotation: spin, drag inertia, or hold the chosen side */
   useFrame((_, dt) => {
     const g = group.current
     if (!g) return
@@ -116,10 +114,6 @@ export function Jacket({ school, view, onViewSettled, rot }: JacketProps) {
       if (diff < -Math.PI) diff += Math.PI * 2
       const step = diff * (1 - Math.exp(-dt * 6))
       r.y = cur + step
-      if (Math.abs(diff) < 0.01 && !settledRef.current) {
-        settledRef.current = true
-        onViewSettled?.()
-      }
     }
     g.rotation.y = r.y
     // gentle idle float

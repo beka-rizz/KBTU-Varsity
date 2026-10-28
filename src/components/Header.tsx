@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { useCart } from '../store/cart'
 
 const NAV = [
-  { href: '#studio', label: 'Studio' },
-  { href: '#schools', label: 'Schools' },
-  { href: '#craft', label: 'Craft' },
-  { href: '#faq', label: 'Pre-order' },
+  { href: '#studio', label: 'Студия' },
+  { href: '#schools', label: 'Школы' },
+  { href: '#craft', label: 'Пошив' },
+  { href: '#faq', label: 'Предзаказ' },
 ]
 
 export function Header() {
@@ -26,16 +26,16 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="group flex items-center gap-3" aria-label="KBTU Varsity home">
+        <a href="#top" className="group flex items-center gap-3" aria-label="КБТУ Варсити, на главную">
           <span
             className="school-transition grid h-9 w-9 place-items-center rounded-lg font-display text-lg leading-none text-[var(--school-ink)]"
             style={{ background: 'var(--school)' }}
           >
-            K
+            К
           </span>
           <span className="flex flex-col leading-none">
-            <span className="font-display text-[15px] tracking-wide">KBTU VARSITY</span>
-            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted">Winter · Almaty</span>
+            <span className="font-display text-[13px] tracking-wide sm:text-[15px]">КБТУ ВАРСИТИ</span>
+            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted">Зима · Алматы</span>
           </span>
         </a>
 
@@ -55,12 +55,12 @@ export function Header() {
           type="button"
           onClick={() => setOpen(true)}
           className="relative inline-flex h-10 items-center gap-2 rounded-full border border-line bg-cream px-4 text-sm font-semibold shadow-sm transition hover:-translate-y-px hover:shadow-card"
-          aria-label={`Open cart, ${count} items`}
+          aria-label={`Открыть корзину, товаров: ${count}`}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0" />
           </svg>
-          <span className="hidden sm:inline">Bag</span>
+          <span className="hidden sm:inline">Корзина</span>
           {count > 0 && (
             <span
               className="school-transition grid h-5 min-w-5 place-items-center rounded-full px-1 text-[11px] font-bold text-[var(--school-ink)]"

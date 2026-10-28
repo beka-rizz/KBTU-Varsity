@@ -118,10 +118,8 @@ export function drawFront(school: School): HTMLCanvasElement {
   const toX = (wx: number) => (wx / FRONT_DECAL.w + 0.5) * S
   const toY = (wy: number) => (1 - (wy / FRONT_DECAL.h + 0.5)) * S
 
-  // Chest letter
-  const len = school.mark.length
-  const size = len === 1 ? 250 : len === 2 ? 190 : 140
-  patchText(ctx, school.mark, toX(0.3), toY(0.34), size, school.accent, school.body)
+  // Chest letter. One size for every school, including the 3-letter marks.
+  patchText(ctx, school.mark, toX(0.3), toY(0.34), 168, school.accent, school.body)
 
   // Pockets: double welt, upper end leaning toward the centre
   const welt = (x: number, y: number, dir: 1 | -1) => {
@@ -155,9 +153,8 @@ export function drawBack(school: School): HTMLCanvasElement {
   // Arch: letters sit on a circle whose top is at ~27% from the top of the patch
   arcText(ctx, school.backArc, cx, S * 0.82, S * 0.55, 210, school.accent, school.body)
 
-  const line = school.backLine
-  const lineSize = line.length <= 6 ? 130 : line.length <= 9 ? 100 : 80
-  patchText(ctx, line, cx, S * 0.56, lineSize, school.accent, school.body)
+  // School name. One size for every school; 92px still fits the longest line.
+  patchText(ctx, school.backLine, cx, S * 0.56, 92, school.accent, school.body)
 
   ctx.save()
   ctx.font = `600 60px ${SCRIPT_FONT}`

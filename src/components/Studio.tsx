@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { PERSONALIZATION_KZT, PRICE_KZT, SCHOOLS, SIZES, formatKZT, type School, type Size } from '../data/schools'
 import { useCart } from '../store/cart'
 import { SchoolLogo } from './SchoolLogo'
@@ -53,11 +53,6 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
     }
   }, [])
 
-  const onViewSettled = useCallback(() => {
-    // hold the pose briefly, then resume the slow spin
-    window.setTimeout(() => setView('auto'), 2200)
-  }, [])
-
   const price = PRICE_KZT + (name.trim() ? PERSONALIZATION_KZT : 0)
 
   const handleAdd = () => {
@@ -71,12 +66,11 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">01 — Studio</p>
-            <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-5xl">Choose your school. See it spin.</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">01 — Студия</p>
+            <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl lg:text-5xl">Выбери школу. Покрути в 3D.</h2>
           </div>
           <p className="max-w-sm text-sm text-ink/60">
-            The 3D jacket is generated live — every patch, stripe and seal is drawn for the school you pick. Drag to
-            rotate.
+            Куртка собирается на лету: шевроны, полоски и печать рисуются под выбранную школу. Потяни, чтобы повернуть.
           </p>
         </div>
 
@@ -103,7 +97,7 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
                 </div>
               </div>
               <span className="hidden rounded-full bg-paper/85 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-ink/70 shadow-sm backdrop-blur sm:inline-flex">
-                Live 3D
+                3D вживую
               </span>
             </div>
 
@@ -113,7 +107,6 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
                   <JacketScene
                     school={school}
                     view={view}
-                    onViewSettled={onViewSettled}
                     active={visible}
                     className="h-full w-full"
                   />
@@ -128,9 +121,9 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
               <div className="inline-flex rounded-full bg-paper/90 p-1 shadow-card backdrop-blur">
                 {(
                   [
-                    ['front', 'Front'],
-                    ['back', 'Back'],
-                    ['auto', 'Spin'],
+                    ['front', 'Спереди'],
+                    ['back', 'Сзади'],
+                    ['auto', 'Вращение'],
                   ] as const
                 ).map(([v, label]) => (
                   <button
@@ -153,8 +146,8 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
           <div className="flex flex-col gap-7">
             <fieldset>
               <legend className="mb-3 flex w-full items-baseline justify-between text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-                School
-                <span className="normal-case tracking-normal text-ink/50">12 colourways</span>
+                Школа
+                <span className="normal-case tracking-normal text-ink/50">12 расцветок</span>
               </legend>
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                 {SCHOOLS.map((s) => {
@@ -186,9 +179,9 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
 
             <fieldset>
               <legend className="mb-3 flex w-full items-baseline justify-between text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-                Size
+                Размер
                 <a href="#faq" className="normal-case tracking-normal text-ink/60 underline-offset-4 hover:underline">
-                  Size guide
+                  Таблица размеров
                 </a>
               </legend>
               <div className="flex flex-wrap gap-2">
@@ -210,29 +203,29 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
 
             <div>
               <label htmlFor="name" className="mb-3 flex items-baseline justify-between text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-                Embroidered name <span className="normal-case tracking-normal text-ink/50">optional · +{formatKZT(PERSONALIZATION_KZT)}</span>
+                Имя на вышивке <span className="normal-case tracking-normal text-ink/50">по желанию · +{formatKZT(PERSONALIZATION_KZT)}</span>
               </label>
               <input
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value.slice(0, 14))}
-                placeholder="e.g. AIBEK"
+                placeholder="например, АЙБЕК"
                 autoComplete="off"
                 className="h-12 w-full rounded-2xl border border-line bg-cream/60 px-4 font-semibold uppercase tracking-[0.12em] outline-none transition placeholder:normal-case placeholder:tracking-normal placeholder:text-ink/35 focus:border-ink focus:bg-cream"
               />
-              <p className="mt-2 text-xs text-ink/50">Stitched on the left chest under the letter. Max 14 characters.</p>
+              <p className="mt-2 text-xs text-ink/50">Вышьем на левой стороне груди под буквой. До 14 символов.</p>
             </div>
 
             <div className="mt-auto rounded-3xl border border-line bg-cream/60 p-5">
               <div className="flex items-end justify-between">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Total</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Итого</p>
                   <p className="mt-1 font-display text-3xl">{formatKZT(price)}</p>
                 </div>
                 <p className="text-right text-xs text-ink/55">
-                  Deposit {formatKZT(10_000)} now
+                  Задаток {formatKZT(10_000)} сейчас
                   <br />
-                  rest on pickup
+                  остальное при получении
                 </p>
               </div>
               <button
@@ -241,12 +234,12 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
                 className="school-transition mt-4 flex h-13 w-full items-center justify-center gap-2 rounded-full py-4 text-sm font-bold text-[var(--school-ink)] shadow-float transition hover:-translate-y-0.5 active:translate-y-0"
                 style={{ background: 'var(--school)' }}
               >
-                {added ? 'Added to bag ✓' : `Add ${school.short} · ${size} to bag`}
+                {added ? 'Добавлено ✓' : `В корзину · ${size}`}
               </button>
               <ul className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] font-semibold text-ink/60">
-                <li className="rounded-xl bg-paper/70 py-2">Melton wool</li>
-                <li className="rounded-xl bg-paper/70 py-2">Leather sleeves</li>
-                <li className="rounded-xl bg-paper/70 py-2">Quilted lining</li>
+                <li className="rounded-xl bg-paper/70 py-2">Шерсть мельтон</li>
+                <li className="rounded-xl bg-paper/70 py-2">Кожаные рукава</li>
+                <li className="rounded-xl bg-paper/70 py-2">Стёганая подкладка</li>
               </ul>
             </div>
           </div>
@@ -258,7 +251,7 @@ export function Studio({ school, onSelect }: { school: School; onSelect: (s: Sch
 
 function StageSkeleton() {
   return (
-    <div className="flex h-full w-full items-center justify-center" aria-busy="true" aria-label="Loading 3D jacket">
+    <div className="flex h-full w-full items-center justify-center" aria-busy="true" aria-label="Загружаем 3D-куртку">
       <svg viewBox="0 0 200 220" className="h-[62%] w-auto animate-pulse-soft opacity-60" aria-hidden="true">
         <path
           d="M60 30c10-14 70-14 80 0l30 12 10 60-24 6-6 90H50l-6-90-24-6 10-60z"

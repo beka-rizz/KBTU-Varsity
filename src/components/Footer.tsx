@@ -3,12 +3,12 @@ export function Footer() {
     <footer className="border-t border-line py-10">
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-5 text-sm text-ink/60 sm:px-8 md:flex-row md:items-center">
         <div>
-          <p className="font-display text-base text-ink">KBTU VARSITY</p>
-          <p className="mt-1">Student-run. Not affiliated with KBTU administration.</p>
+          <p className="font-display text-base text-ink">КБТУ ВАРСИТИ</p>
+          <p className="mt-1">Студенческий проект. Не связан с администрацией КБТУ.</p>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           <a className="hover:text-ink" href="https://kbtu.edu.kz/en/schools" target="_blank" rel="noreferrer">
-            KBTU schools ↗
+            Школы КБТУ ↗
           </a>
           <a className="hover:text-ink" href="mailto:hello@kbtuvarsity.kz">
             hello@kbtuvarsity.kz
@@ -17,7 +17,7 @@ export function Footer() {
             Telegram ↗
           </a>
         </div>
-        <p>© {new Date().getFullYear()} · Almaty</p>
+        <p>© {new Date().getFullYear()} · Алматы</p>
       </div>
     </footer>
   )

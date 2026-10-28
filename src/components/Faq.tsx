@@ -1,26 +1,26 @@
 const STEPS = [
-  { n: '01', t: 'Pick & reserve', d: 'Choose your school and size, pay a 10 000 ₸ deposit in the bag.' },
-  { n: '02', t: 'Try it on campus', d: 'We bring sample sizes to KBTU (Tole bi 59) every Tuesday and Thursday.' },
-  { n: '03', t: 'Batch production', d: 'Orders close on the 25th of each month; jackets are sewn in 3 weeks.' },
-  { n: '04', t: 'Pick up', d: 'Collect at the campus pop-up or get Yandex delivery within Almaty.' },
+  { n: '01', t: 'Выбери и забронируй', d: 'Школа и размер — в корзине, задаток 10 000 ₸.' },
+  { n: '02', t: 'Примерь в кампусе', d: 'Образцы размеров привозим в КБТУ (Толе би 59) каждый вторник и четверг.' },
+  { n: '03', t: 'Партия в пошив', d: 'Заказы закрываем 25-го числа каждого месяца, куртки шьём 3 недели.' },
+  { n: '04', t: 'Забери', d: 'На кампусной точке или доставкой Яндекса по Алматы.' },
 ]
 
 const QA = [
   {
-    q: 'How does sizing work?',
-    a: 'The cut is unisex and slightly oversized, like the sample. If you usually wear M in a hoodie, take M. Chest (cm): XS 104 · S 108 · M 112 · L 116 · XL 120 · XXL 126. Fitting on campus is free.',
+    q: 'Как выбрать размер?',
+    a: 'Крой унисекс и чуть свободный, как на образце. Если в худи носишь M — бери M. Обхват груди (см): XS 104 · S 108 · M 112 · L 116 · XL 120 · XXL 126. Примерка в кампусе бесплатная.',
   },
   {
-    q: 'Can I change the school after ordering?',
-    a: 'Yes, up to the batch closing date (25th). After that the patches are already made for your jacket.',
+    q: 'Можно сменить школу после заказа?',
+    a: 'Да, до закрытия партии (25-е число). После этого шевроны для твоей куртки уже изготовлены.',
   },
   {
-    q: 'Is the embroidered name refundable?',
-    a: 'Personalised jackets can be exchanged for size but not returned. Non-personalised jackets can be returned within 14 days unworn.',
+    q: 'Именная вышивка возвращается?',
+    a: 'Куртку с именем можно обменять по размеру, но не вернуть. Без имени — возврат в течение 14 дней, если не носили.',
   },
   {
-    q: 'Is this an official KBTU product?',
-    a: 'KBTU Varsity is a student-run project and is not affiliated with the university administration. School names are used to identify colourways.',
+    q: 'Это официальный мерч КБТУ?',
+    a: 'КБТУ Варсити — студенческий проект и не связан с администрацией университета. Названия школ нужны, чтобы отличать расцветки.',
   },
 ]
 
@@ -30,8 +30,8 @@ export function Faq() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">04 — Pre-order</p>
-            <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-5xl">How it works</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">04 — Предзаказ</p>
+            <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-5xl">Как это работает</h2>
             <ol className="mt-8 space-y-6">
               {STEPS.map((s) => (
                 <li key={s.n} className="flex gap-4">
@@ -51,7 +51,7 @@ export function Faq() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-muted">Questions</h3>
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-muted">Вопросы</h3>
             <div className="divide-y divide-line rounded-3xl border border-line bg-paper">
               {QA.map((item) => (
                 <details key={item.q} className="group px-5 py-4 open:bg-cream/50">

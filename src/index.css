@@ -2,8 +2,8 @@
 
 @theme {
   --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'Graduate', 'Arial Black', Impact, sans-serif;
-  --font-script: 'Caveat', 'Brush Script MT', cursive;
+  --font-display: 'Unbounded', 'Manrope', sans-serif;
+  --font-script: 'Marck Script', 'Segoe Script', cursive;
 
   --color-paper: #f6f3ec;
   --color-paper-2: #ece7db;
