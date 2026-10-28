@@ -3,7 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { Decal } from '@react-three/drei'
 import * as THREE from 'three'
 import type { School } from '../data/schools'
-import { BACK_DECAL, FRONT_DECAL, drawBack, drawFront, drawSeal, drawStripes, loadJacketFonts } from './textures'
+import { BACK_DECAL, FRONT_DECAL, drawBack, drawFront, drawSeal, drawStripes, loadJacketFonts, loadKbtuMark } from './textures'
 
 /* ------------------------------------------------------------------ */
 /* Proportions (world units). Body is a z-squashed cylinder.           */
@@ -65,7 +65,9 @@ export function Jacket({ school, view, rot }: JacketProps) {
   const [fontsReady, setFontsReady] = useState(false)
   useEffect(() => {
     let alive = true
-    loadJacketFonts().then(() => alive && setFontsReady(true))
+    Promise.all([loadJacketFonts(), loadKbtuMark()]).finally(() => {
+      if (alive) setFontsReady(true)
+    })
     return () => {
       alive = false
     }
@@ -249,7 +251,7 @@ function Sleeve({
         <capsuleGeometry args={[SLEEVE_R, SLEEVE_LEN, 8, 32]} />
         <meshPhysicalMaterial ref={matRef} color={color} roughness={0.5} clearcoat={0.35} clearcoatRoughness={0.4} />
         {seal && (
-          <Decal position={sealPos} rotation={[0, sealAngle, 0]} scale={[0.26, 0.26, 0.3]}>
+          <Decal position={sealPos} rotation={[0, sealAngle, 0]} scale={[0.34, 0.34, 0.3]}>
             <meshStandardMaterial map={seal} transparent polygonOffset polygonOffsetFactor={-4} depthWrite={false} roughness={0.9} />
           </Decal>
         )}

@@ -1,9 +1,9 @@
 import type { School } from '../data/schools'
 
 /**
- * All jacket graphics (chenille letters, back arch, sleeve seal, rib stripes)
- * are drawn on <canvas> at runtime. That means zero image downloads per school,
- * and new colourways cost nothing in bytes.
+ * Jacket graphics (chenille letters, back arch, sleeve seal, rib stripes) are
+ * drawn on <canvas> at runtime. The classic jacket's chest uses the KBTU
+ * mark (the building and the letters) instead of a chenille letter.
  */
 
 export const DISPLAY_FONT = '"Graduate", "Arial Black", Impact, sans-serif'
@@ -14,6 +14,26 @@ export const FRONT_DECAL = { w: 1.3, h: 1.45 }
 export const BACK_DECAL = { w: 1.2, h: 1.3 }
 
 let fontsPromise: Promise<void> | null = null
+let kbtuMark: HTMLImageElement | null = null
+let kbtuMarkPromise: Promise<void> | null = null
+
+/** Building + “KBTU” lockup. Never rejects — drawing falls back to the letter. */
+export function loadKbtuMark(): Promise<void> {
+  if (kbtuMark) return Promise.resolve()
+  if (kbtuMarkPromise) return kbtuMarkPromise
+  if (typeof Image === 'undefined') return Promise.resolve()
+  kbtuMarkPromise = new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => {
+      kbtuMark = img
+      resolve()
+    }
+    img.onerror = () => resolve()
+    img.src = '/img/kbtu-mark.png'
+  })
+  return kbtuMarkPromise
+}
+
 /** Resolves once the display fonts are usable in canvas (never rejects). */
 export function loadJacketFonts(): Promise<void> {
   if (fontsPromise) return fontsPromise
@@ -99,6 +119,36 @@ function arcText(
   ctx.restore()
 }
 
+/** Recolour the mark, keeping its alpha, so it reads on the wool body. */
+function tintedMark(color: string, w: number, h: number): HTMLCanvasElement | null {
+  if (!kbtuMark) return null
+  const { c, ctx } = makeCanvas(w, h)
+  ctx.drawImage(kbtuMark, 0, 0, w, h)
+  ctx.globalCompositeOperation = 'source-in'
+  ctx.fillStyle = color
+  ctx.fillRect(0, 0, w, h)
+  return c
+}
+
+/** Felt edge plus a crisp fill, same idea as the chenille letters. */
+function drawChenilleMark(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  fill: string,
+) {
+  const tinted = tintedMark(fill, w, h)
+  if (!tinted) return
+  const spread = Math.max(2, Math.round(h * 0.012))
+  for (let i = 0; i < 8; i++) {
+    const a = (i / 8) * Math.PI * 2
+    ctx.drawImage(tinted, x + Math.cos(a) * spread, y + Math.sin(a) * spread)
+  }
+  ctx.drawImage(tinted, x, y)
+}
+
 function drawLogo(ctx: CanvasRenderingContext2D, d: string, cx: number, cy: number, size: number, color: string) {
   ctx.save()
   ctx.translate(cx - size / 2, cy - size / 2)
@@ -118,8 +168,19 @@ export function drawFront(school: School): HTMLCanvasElement {
   const toX = (wx: number) => (wx / FRONT_DECAL.w + 0.5) * S
   const toY = (wy: number) => (1 - (wy / FRONT_DECAL.h + 0.5)) * S
 
-  // Chest letter. One size for every school, including the 3-letter marks.
-  patchText(ctx, school.mark, toX(0.3), toY(0.34), 168, school.accent, school.body)
+  // Classic jacket wears the KBTU mark. Multi-letter marks share one size;
+  // a single letter is a bit larger so it has the same presence.
+  if (school.id === 'kbtu' && kbtuMark) {
+    // Sits on the wearer's left chest, clear of the placket. The cylinder
+    // projection pulls wide marks toward the centre, so the anchor is
+    // further out than the letter was.
+    const h = 200
+    const w = Math.round(h * (kbtuMark.width / kbtuMark.height))
+    drawChenilleMark(ctx, toX(0.31) - w / 2, toY(0.32) - h / 2, w, h, school.accent)
+  } else if (school.id !== 'kbtu') {
+    const chestSize = school.mark.length === 1 ? 204 : 168
+    patchText(ctx, school.mark, toX(0.3), toY(0.34), chestSize, school.accent, school.body)
+  }
 
   // Pockets: double welt, upper end leaning toward the centre
   const welt = (x: number, y: number, dir: 1 | -1) => {

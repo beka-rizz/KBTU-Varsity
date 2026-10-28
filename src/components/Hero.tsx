@@ -24,7 +24,7 @@ export function Hero({ school, onPick }: { school: School; onPick: (s: School) =
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
-            Зимний бомбер для студентов КБТУ: плотная шерсть, кожаные рукава и буква на груди. Крой общий, цвет — свой:
+            Зимний бомбер для студентов КБТУ. Крой общий, цвет — свой:
             классический тёмно-синий и{' '}
             <strong className="font-semibold text-ink">своя расцветка у каждой школы</strong>.
           </p>
