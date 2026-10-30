@@ -10,10 +10,7 @@ export function Footer() {
           <a className="hover:text-ink" href="https://kbtu.edu.kz/en/schools" target="_blank" rel="noreferrer">
             Школы КБТУ ↗
           </a>
-          <a className="hover:text-ink" href="mailto:hello@kbtuvarsity.kz">
-            hello@kbtuvarsity.kz
-          </a>
-          <a className="hover:text-ink" href="https://t.me/kbtuvarsity" target="_blank" rel="noreferrer">
+          <a className="hover:text-ink" href="https://t.me/beka_rizz" target="_blank" rel="noreferrer">
             Telegram ↗
           </a>
         </div>

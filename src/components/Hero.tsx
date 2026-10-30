@@ -74,37 +74,26 @@ export function Hero({ school, onPick }: { school: School; onPick: (s: School) =
           </div>
         </div>
 
-        {/* Photo stack */}
+        {/* Sample photo: front and back in one frame */}
         <div className="animate-rise relative mx-auto w-full max-w-md lg:max-w-none [animation-delay:120ms]">
-          <div className="relative aspect-[4/5] w-[78%] overflow-hidden rounded-[28px] shadow-float ring-1 ring-ink/10">
+          <div className="relative overflow-hidden rounded-[28px] shadow-float ring-1 ring-ink/10">
             <img
-              src="/img/jacket-front-960.webp"
-              srcSet="/img/jacket-front-480.webp 480w, /img/jacket-front-960.webp 960w"
+              src="/img/jacket-sample-896.jpg"
+              srcSet="/img/jacket-sample-480.jpg 480w, /img/jacket-sample-896.jpg 896w"
               sizes="(min-width: 1024px) 40vw, 90vw"
-              width={960}
-              height={1280}
-              alt="Тёмно-синий бомбер с кремовыми кожаными рукавами и шевроном на груди"
+              width={896}
+              height={1194}
+              alt="Образец бомбера: спинка с вышивкой по дуге и буква на груди"
               fetchPriority="high"
               decoding="async"
-              className="h-full w-full object-cover"
+              className="h-auto w-full"
             />
             <div className="absolute left-4 top-4 rounded-full bg-paper/90 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] backdrop-blur">
               Образец
             </div>
           </div>
-          <div className="absolute -bottom-6 right-0 aspect-[4/5] w-[46%] overflow-hidden rounded-[22px] shadow-float ring-1 ring-ink/10 rotate-[4deg]">
-            <img
-              src="/img/jacket-back-480.webp"
-              width={480}
-              height={640}
-              alt="Спинка бомбера с вышивкой по дуге"
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-cover"
-            />
-          </div>
           <div
-            className="school-transition absolute -left-3 bottom-10 hidden rotate-[-6deg] rounded-2xl px-4 py-3 text-[var(--school-ink)] shadow-float sm:block"
+            className="school-transition absolute -left-3 bottom-8 hidden rotate-[-6deg] rounded-2xl px-4 py-3 text-[var(--school-ink)] shadow-float sm:block"
             style={{ background: 'var(--school)' }}
           >
             <p className="font-display text-2xl leading-none">11 + 1</p>
